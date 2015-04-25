@@ -5,7 +5,9 @@ var React = require('react-native');
 var {
     Text,
     View,
-    StyleSheet
+    StyleSheet,
+    Image,
+    TouchableHighlight
 
 } = React;
 
@@ -25,11 +27,60 @@ var styles = StyleSheet.create({
 });
 
 class Dashboard extends React.Component {
+    makeBackground (btn) {
+        var obj = {
+            flexDirection: 'row',
+            alignSelf: 'stretch',
+            justifyContent: 'center',
+            flex: 1
+        };
+
+        if (btn === 0) {
+            obj.backgroundColor = '#48BBEC';
+        } else if (btn === 1) {
+            obj.backgroundColor = '#E77AAE';
+        } else {
+            obj.backgroundColor = '#758BF4';
+        }
+
+        return obj;
+    }
+    goToProfile () {
+        console.log('Going to the profile page');
+    }
+    goToRepos () {
+        console.log('Going to the repo page');
+    }
+    goToNotes () {
+        console.log('Going to the notes page');
+    }
     render () {
         return (
             <View style={styles.container}>
-                <Text>This is the dashboard</Text>
-                <Text>{this.props.userInfo}</Text>
+                <Image source={{uri: this.props.userInfo.avatar_url}}
+                       style={styles.image}
+                />
+                <TouchableHighlight
+                    style={this.makeBackground(0)}
+                    onPress={this.goToProfile.bind(this)}
+                    undelayColor="#88D4F5"
+                >
+                    <Text style={styles.buttonText}>View Profile</Text>
+                </TouchableHighlight>
+                <TouchableHighlight
+                    style={this.makeBackground(1)}
+                    onPress={this.goToRepos.bind(this)}
+                    undelayColor="#88D4F5"
+                    >
+                    <Text style={styles.buttonText}>View Repos</Text>
+                </TouchableHighlight>
+                <TouchableHighlight
+                    style={this.makeBackground(2)}
+                    onPress={this.goToNotes.bind(this)}
+                    undelayColor="#88D4F5"
+                    >
+                    <Text style={styles.buttonText}>View Notes</Text>
+                </TouchableHighlight>
             </View>
         )
     }
